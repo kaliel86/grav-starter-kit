@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if header.titre %}
+            {{ header.titre|e('html') }}
+        {% else %}
+            {{ header.title|e('html') }}
+        {% endif %}
+         | {{ site.title|e('html') }}
+    </title>
+
+    {% do assets.addCss('theme://css/app.css') %}
+    {{ assets.css() }}
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" href="{{ url('theme://images/favicon.png', true) }}">
+    <link rel="canonical" href="{{ page.url(true, true) }}">
+    {% if header.description %}
+    <meta name="description" content="{{ header.description }}">
+    {% else %}
+        <meta name="description" content="{{ site.description }}">
+    {% endif %}
+</head>
+<body>
+
+<div id="loader" class="active">loader</div>
+
+<div id="main">
+
+    <header class="header">
+        <a href="{{ base_url == '' ? '/' : base_url }}" class="header-logo">
+            <img src="{{ theme_url }}/images/logo.svg" class="boulon">
+        </a>
+        {% include 'partials/navigation.html.twig' %}
+    </header>
+    <main class="wrapper">
+        {% block content %}{% endblock %}
+    </main>
+    {% include 'partials/footer.html.twig' %}
+</div>
+{% do assets.addJs('theme://js/app.min.js') %}
+{{ assets.js() }}
+</body>
+</html>

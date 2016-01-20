@@ -1,0 +1,8 @@
+<nav class="header-menu">
+    {% for page in pages.children.visible|slice(1, pages.children.visible.length)%}
+        {% set current_page = (page.active or page.activeChild) ? 'active' : '' %}
+        <a href="{{ page.url }}">
+            {{ page.menu }}
+        </a>
+    {% endfor %}
+</nav>
